@@ -1,0 +1,9 @@
+NewYork,23.5
+NewYork,25.1
+NewYork,22.3
+LosAngeles,30.0
+LosAngeles,29.8
+LosAngeles,31.2
+Chicago,15.5
+Chicago,14.8
+Chicago,16.2
