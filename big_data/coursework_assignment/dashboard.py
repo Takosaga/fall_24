@@ -188,7 +188,7 @@ def create_modern_histogram(df, duration_col, metric_col, bin_size, agg_func, ti
     )
 
     # Styling for primary axis
-    ax1.set_xlabel("Duration (Seconds)", fontsize=24, color=COLORS['text'])
+    ax1.set_xlabel(f"Duration (Seconds)", fontsize=24, color=COLORS['text'])
     ax1.set_ylabel("Frequency", color=COLORS['primary'], fontsize=24)
     ax1.tick_params(axis='both', which='major', labelsize=16, colors=COLORS['text'])
     ax1.grid(True, alpha=0.2, color=COLORS['text'])
@@ -237,7 +237,7 @@ with col1:
         f"tiktok_{metric}",
         tiktok_bins,
         aggregation.lower(),
-        "TikTok Metric over Duration"
+        f"TikTok {metric} over Duration by Bin Size {tiktok_bins}"
     )
     st.pyplot(fig1)
     st.markdown("</div>", unsafe_allow_html=True)
@@ -254,7 +254,7 @@ with col2:
         f"youtube_{metric}",
         youtube_bins,
         aggregation.lower(),
-        "YouTube Metric over Duration"
+        f"YouTube {metric} over Duration by Bin Size {youtube_bins}"
     )
     st.pyplot(fig2)
     st.markdown("</div>", unsafe_allow_html=True)
