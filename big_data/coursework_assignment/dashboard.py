@@ -59,6 +59,7 @@ st.markdown("""
         /* Sliders */
         .stSlider > div > div {
             background-color: %s;
+            border-radius: 10px;
         }
         
         /* Custom container for graphs */
@@ -87,13 +88,14 @@ st.markdown("""
             border-radius: 10px;
             margin: 0.5rem 0;
             border-left: 4px solid %s;
+            border-right: 4px solid %s;
         }
     </style>
 """ % (
     COLORS['background'], COLORS['text'], COLORS['card'],
-    COLORS['card'], COLORS['text'], COLORS['primary'],
+    COLORS['card'], COLORS['text'], COLORS['background'],
     COLORS['card'], COLORS['text'], COLORS['card'],
-    COLORS['primary']
+    COLORS['primary'], COLORS['primary']
 ), unsafe_allow_html=True)
 
 # Dashboard Header with Icon
