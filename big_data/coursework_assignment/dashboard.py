@@ -106,7 +106,7 @@ st.markdown(f"""
             Social Media Analytics Dashboard
         </h1>
         <p style='color: {COLORS["text"]}; font-size: 1.1rem;'>
-            Comparative Analysis: TikTok vs YouTube Performance
+            TikTok & YouTube Metric Performances Over Video duration
         </p>
     </div>
 """, unsafe_allow_html=True)
@@ -188,9 +188,9 @@ def create_modern_histogram(df, duration_col, metric_col, bin_size, agg_func, ti
     )
 
     # Styling for primary axis
-    ax1.set_xlabel("Duration (Seconds)", fontsize=12, color=COLORS['text'])
-    ax1.set_ylabel("Frequency", color=COLORS['primary'], fontsize=12)
-    ax1.tick_params(axis='both', colors=COLORS['text'])
+    ax1.set_xlabel("Duration (Seconds)", fontsize=24, color=COLORS['text'])
+    ax1.set_ylabel("Frequency", color=COLORS['primary'], fontsize=24)
+    ax1.tick_params(axis='both', which='major', labelsize=16, colors=COLORS['text'])
     ax1.grid(True, alpha=0.2, color=COLORS['text'])
 
     # Enhanced overlay
@@ -208,13 +208,13 @@ def create_modern_histogram(df, duration_col, metric_col, bin_size, agg_func, ti
     ax2.set_ylabel(
         f"{metric_col.split('_')[1].title()} ({agg_func.capitalize()}, per 1,000)",
         color=COLORS['secondary'],
-        fontsize=12
+        fontsize=24
     )
-    ax2.tick_params(axis='y', labelcolor=COLORS['secondary'])
+    ax2.tick_params(axis='y', which='major', labelsize=16, labelcolor=COLORS['secondary'])
     ax2.grid(False)
 
     # Title and legend
-    plt.title(title, pad=20, color=COLORS['text'], fontsize=14)
+    plt.title(title, pad=20, color=COLORS['text'], fontsize=30)
     ax2.legend(loc="upper right", facecolor=COLORS['background'], 
               labelcolor=COLORS['text'], framealpha=0.9)
 
@@ -228,7 +228,7 @@ col1, col2 = st.columns(2)
 with col1:
     st.markdown(f"""
         <div class='metric-card' style='background-color: {COLORS['card']}; padding: 1rem; border-radius: 10px; margin: 0.5rem 0; border-left: 4px solid {COLORS['primary']}; text-align: center;'>
-                <h3 style='color: {COLORS["accent"]}; margin-bottom: 1rem;'>TikTok Metrics</h3>
+                <h3 style='color: {COLORS["accent"]}; margin-bottom: 1rem;'>TikTok Data</h3>
         """, unsafe_allow_html=True)
     
     fig1 = create_modern_histogram(
@@ -237,7 +237,7 @@ with col1:
         f"tiktok_{metric}",
         tiktok_bins,
         aggregation.lower(),
-        "TikTok Content Performance"
+        "TikTok Metric over Duration"
     )
     st.pyplot(fig1)
     st.markdown("</div>", unsafe_allow_html=True)
@@ -245,7 +245,7 @@ with col1:
 with col2:
     st.markdown(f"""
         <div class='metric-card' style='background-color: {COLORS['card']}; padding: 1rem; border-radius: 10px; margin: 0.5rem 0; border-left: 4px solid {COLORS['primary']}; text-align: center;'>
-                <h3 style='color: {COLORS["accent"]}; margin-bottom: 1rem;'>TikTok Metrics</h3>
+                <h3 style='color: {COLORS["accent"]}; margin-bottom: 1rem;'>Youtube Data</h3>
         """, unsafe_allow_html=True)
     
     fig2 = create_modern_histogram(
@@ -254,7 +254,7 @@ with col2:
         f"youtube_{metric}",
         youtube_bins,
         aggregation.lower(),
-        "YouTube Content Performance"
+        "YouTube Metric over Duration"
     )
     st.pyplot(fig2)
     st.markdown("</div>", unsafe_allow_html=True)
@@ -266,7 +266,7 @@ st.markdown(f"""
             <span style='color: {COLORS["accent"]}'>⚡</span> 
             Powered by Streamlit | 
             <span style='color: {COLORS["secondary"]}'>❤️</span> 
-            Analytics Dashboard v2.0
+            Analytics Dashboard v1.0
         </p>
     </div>
 """, unsafe_allow_html=True)
