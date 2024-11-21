@@ -1,0 +1,19 @@
+name: detecting_suspecious_tiktok_content_creators
+channels:
+  - conda-forge
+dependencies:
+  - python=3.8
+  - black
+  - flake8
+  - isort
+  - pip
+  - ipython
+  - jupyterlab
+  - matplotlib
+  - notebook
+  - numpy
+  - pandas
+  - scikit-learn
+  - pip:
+    - python-dotenv
+    - -e .
