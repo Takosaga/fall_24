@@ -1,9 +1,3 @@
-[browser]
-gatherUsageStats = false
-
-[server]
-headless = true
-
 [theme]
 primaryColor="#4361ee"
 backgroundColor="#1a1a2e"
