@@ -1,8 +1,13 @@
 
 import streamlit as st
 import pandas as pd
+import plotly.graph_objects as go
 import seaborn as sns
+import numpy as np
 import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import StandardScaler
+from scipy import stats
 
 # Modern color palette
 COLORS = {
@@ -14,6 +19,9 @@ COLORS = {
     'accent': '#4cc9f0'        # Light blue
 }
 
+# New background color
+new_background_color = "#222222"
+
 # Configure Streamlit layout
 st.set_page_config(
     layout="wide",
@@ -23,80 +31,65 @@ st.set_page_config(
 )
 
 # Custom CSS for modern styling
-st.markdown("""
+st.markdown(f"""
     <style>
         /* Main container */
-        .main {
-            background-color: %s;
+        .main {{
+            background-color: {new_background_color}; 
             padding: 2rem;
-        }
+        }}
         
         /* Headers */
-        h1, h2, h3 {
-            color: %s !important;
+        h1, h2, h3 {{
+            color: {COLORS['text']} !important;
             font-family: 'Segoe UI', sans-serif;
             font-weight: 600;
-        }
+        }}
         
         /* Sidebar */
-        .css-1d391kg {
-            background-color: %s;
-        }
+        .css-1d391kg {{
+            background-color: {COLORS['card']};
+        }}
         
         /* Cards */
-        div[data-testid="stMetricValue"] {
-            background-color: %s;
+        div[data-testid="stMetricValue"] {{
+            background-color: {COLORS['card']};
             padding: 1rem;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+        }}
         
         /* Widgets */
-        .stSelectbox, .stRadio > label {
-            color: %s !important;
-        }
+        .stSelectbox, .stRadio > label {{
+            color: {COLORS['text']} !important;
+        }}
         
         /* Sliders */
-        .stSlider > div > div {
-            background-color: %s;
+        .stSlider > div > div {{
+            background-color: {new_background_color}; 
             border-radius: 10px;
-        }
+        }}
         
         /* Custom container for graphs */
-        .graph-container {
-            background-color: %s;
+        .graph-container {{
+            background-color: {COLORS['card']};
             border-radius: 15px;
             padding: 1.5rem;
             margin: 1rem 0;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
+        }}
         
         /* Footer */
-        .footer {
+        .footer {{
             text-align: center;
             padding: 2rem;
-            color: %s;
+            color: {COLORS['text']};
             font-size: 0.9rem;
             margin-top: 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        /* Custom metric styles */
-        .metric-card {
-            background-color: %s;
-            padding: 1rem;
-            border-radius: 10px;
-            margin: 0.5rem 0;
-            border-left: 4px solid %s;
-            border-right: 4px solid %s;
-        }
+        }}
     </style>
-""" % (
-    COLORS['background'], COLORS['text'], COLORS['card'],
-    COLORS['card'], COLORS['text'], COLORS['background'],
-    COLORS['card'], COLORS['text'], COLORS['card'],
-    COLORS['primary'], COLORS['primary']
-), unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
 # Dashboard Header with Icon
 st.markdown(f"""
@@ -105,7 +98,7 @@ st.markdown(f"""
             <span style='color: {COLORS["secondary"]}'>📊</span> 
             Social Media Analytics Dashboard
         </h1>
-        <p style='color: {COLORS["text"]}; font-size: 1.1rem;'>
+        <p style='color: {COLORS["text"]}; font_size: 1.1rem;'>
             TikTok & YouTube Metric Performances Over Views
         </p>
     </div>
@@ -115,46 +108,118 @@ st.markdown(f"""
 tiktok_df = pd.read_pickle('tiktok.pkl')
 youtube_df = pd.read_pickle('youtube.pkl')
 
-# Scatterplot with Regression Line
-def scatterplot_with_regression(df, x_col, y_col, title):
-    fig, ax = plt.subplots(figsize=(14, 8))
-    fig.patch.set_facecolor(COLORS['background'])
-    ax.set_facecolor(COLORS['background'])
-    
-    # Scatterplot with regression line
-    sns.regplot(
-        data=df,
-        x=x_col,
-        y=y_col,
-        scatter_kws={'color': COLORS['accent'], 's': 50, 'alpha': 0.7},
-        line_kws={'color': COLORS['secondary'], 'linewidth': 2},
-        ax=ax
+# Standardize column names
+tiktok_df.rename(columns={
+    'tiktok_view_count': 'view_count',
+    'tiktok_like_count': 'like_count',
+    'tiktok_comment_count': 'comment_count'
+}, inplace=True)
+youtube_df.rename(columns={
+    'youtube_view_count': 'view_count',
+    'youtube_like_count': 'like_count',
+    'youtube_comment_count': 'comment_count'
+}, inplace=True)
+
+# Sidebar controls
+st.sidebar.header("Settings")
+y_metric = st.sidebar.selectbox("Choose Y-axis Metric", ["like_count", "comment_count"])
+standardize = st.sidebar.checkbox("Standardize Metrics (z-scores)", value=True)
+remove_outliers = st.sidebar.checkbox("Remove Outliers", value=True)
+show_points = st.sidebar.checkbox("Show Data Points", value=False)
+
+# Create columns for side-by-side plots
+col1, col2 = st.columns(2)
+
+# Function to create a single scatter plot
+def create_scatter_plot(platform_data, platform_name, y_metric):
+    fig = go.Figure()
+
+    # Remove outliers if selected
+    if remove_outliers:
+        z_scores = stats.zscore(platform_data[y_metric])
+        abs_z_scores = np.abs(z_scores)
+        threshold = 3
+        platform_data = platform_data[(abs_z_scores < threshold)]
+
+    # Standardize data if selected
+    if standardize:
+        scaler = StandardScaler()
+        platform_data[['view_count', y_metric]] = scaler.fit_transform(platform_data[['view_count', y_metric]])
+
+    x = platform_data['view_count'].values.reshape(-1, 1)  # Reshape x for LinearRegression
+    y = platform_data[y_metric].values
+    reg = LinearRegression().fit(x, y)
+    platform_data['regression_line'] = reg.predict(x)
+
+    # Calculate and format regression equation
+    slope = reg.coef_[0]
+    intercept = reg.intercept_
+    equation = f"y = {slope:.3f}x + {intercept:.3f}"
+
+    fig.add_trace(go.Scatter(
+        x=platform_data['view_count'],
+        y=platform_data[y_metric],
+        mode='markers' if show_points else 'none',  # Show/hide data points
+        marker=dict(size=8, opacity=0.7),
+        name=f'{platform_name} Data Points',
+        marker_color=platform_colors[platform_name]
+    ))
+
+    fig.add_trace(go.Scatter(
+        x=platform_data['view_count'],
+        y=platform_data['regression_line'],
+        mode='lines',
+        name=f'{platform_name} Regression Line',
+        line=dict(width=3, color=platform_colors[platform_name]),
+        text=equation,  # Add equation to hovertext
+    ))
+
+    # Display equation directly on the plot
+    fig.add_annotation(
+        x=0.05,  # Adjust x position as needed
+        y=0.9,  # Adjust y position as needed
+        xref="paper",
+        yref="paper",
+        text=equation,
+        showarrow=False,
+        font=dict(size=14, color=platform_colors[platform_name])
     )
-    
-    # Styling
-    ax.set_title(title, fontsize=24, color=COLORS['text'], pad=20)
-    ax.set_xlabel(x_col.replace('_', ' ').title(), fontsize=18, color=COLORS['text'])
-    ax.set_ylabel(y_col.replace('_', ' ').title(), fontsize=18, color=COLORS['text'])
-    ax.tick_params(colors=COLORS['text'])
-    ax.grid(True, color=COLORS['text'], alpha=0.2)
-    
+
+    fig.update_layout(
+        title=f"{platform_name}: Views vs {y_metric.replace('_', ' ').title()}",
+        xaxis_title='Views',
+        yaxis_title=y_metric.replace('_', ' ').title(),
+        showlegend=True,
+        title_x=0.5,
+        plot_bgcolor=new_background_color  # Set the plot background color
+    )
     return fig
 
-# Sidebar for Scatterplot Controls
-with st.sidebar:
-    st.markdown(f"<h2 style='color: {COLORS['accent']}'>Scatterplot Settings</h2>", unsafe_allow_html=True)
-    scatter_x = st.selectbox("X-axis Metric", tiktok_df.columns, index=0)
-    scatter_y = st.selectbox("Y-axis Metric", tiktok_df.columns, index=1)
-    scatter_data = st.radio("Choose Dataset", ["TikTok", "YouTube"])
-    st.markdown("<br>", unsafe_allow_html=True)
+# Define colors for each platform
+platform_colors = {
+    'TikTok': 'blue',
+    'YouTube': 'orange'
+}
 
-# Scatterplot Section
-selected_df = tiktok_df if scatter_data == "TikTok" else youtube_df
-scatter_title = f"{scatter_data} Scatterplot: {scatter_x} vs {scatter_y}"
+# Create plots for each platform
+tiktok_fig = create_scatter_plot(tiktok_df, 'TikTok', y_metric)
+youtube_fig = create_scatter_plot(youtube_df, 'YouTube', y_metric)
 
-st.markdown(f"<h2 style='color: {COLORS['accent']}'>{scatter_title}</h2>", unsafe_allow_html=True)
+# Display plots in columns
+with col1:
+    st.plotly_chart(tiktok_fig, use_container_width=True)
 
-scatter_fig = scatterplot_with_regression(
-    selected_df, scatter_x, scatter_y, scatter_title
-)
-st.pyplot(scatter_fig)
+with col2:
+    st.plotly_chart(youtube_fig, use_container_width=True)
+
+# Modern footer
+st.markdown(f"""
+    <div class='footer'>
+        <p>
+            <span style='color: {COLORS["accent"]}'>⚡</span> 
+            Powered by Streamlit | 
+            <span style='color: {COLORS["secondary"]}'>❤️</span> 
+            Analytics Dashboard v1.0
+        </p>
+    </div>
+""", unsafe_allow_html=True)
