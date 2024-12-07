@@ -215,17 +215,34 @@ summary_text = st.empty()
 
 summary_text.markdown(f"""
     <div style="background-color: {COLORS['background']}; padding: 1rem; border-radius: 10px; margin-top: 1rem;">
-        <h3>Summary</h3>
-        <p>
-            19,383 rows of Tiktok data gathered from <a href="https://www.kaggle.com/datasets/yakhyojon/tiktok">Kaggle</a>. <br>
-            4,450 rows Youtube data gathered from <a href="https://developers.google.com/youtube/v3/docs/">Google YouTube API</a>. <br>
-            This dashboard analyzes the relationship between views and {y_metric.replace('_', ' ').title()} for TikTok and YouTube videos. <br>
-            The regression lines show a positive correlation between views and {y_metric} for both platforms. <br>
-            Data has been standardized using z-scores. <br>
-            Outliers were removed using the IQR method. <br>
-            <a href="https://github.com/Takosaga/fall_24/tree/main/coursework_assignment">Full Project Repo</a>. 
-        </p>
-    </div>
+    <h3>Summary</h3>
+    <p>
+        This dashboard analyzes the relationship between views and {y_metric.replace('_', ' ').title()} for TikTok and YouTube videos. 
+        The regression lines show a positive correlation between views and {y_metric} for both platforms.
+        More views bring in more likes at a greater rate for TikTok than Youtube.
+        More views bring in more comments at a slighlty greater rate for YouTube than TikTok.
+        Data has been standardized using z-scores. Outliers were removed using the IQR method. 
+    </p>
+    <h4>Technologies Used:</h4>
+    <ul>
+        <li><b>Streamlit:</b> For building the interactive web application.</li>
+        <li><b>Pandas:</b> For data manipulation and cleaning.</li>
+        <li><b>Plotly:</b> For creating interactive and visually appealing charts.</li>
+        <li><b>Seaborn:</b> For statistical graphics and data visualization.</li>
+        <li><b>NumPy:</b> For numerical computing and array operations.</li>
+        <li><b>Matplotlib:</b> For creating static, animated, and interactive visualizations.</li>
+        <li><b>Scikit-learn:</b> For machine learning algorithms, including linear regression.</li>
+        <li><b>SciPy:</b> For scientific and technical computing.</li>
+        <li><b>SQLite:</b> For relational database management.</li>
+        <li><b>MongoDB:</b> For NoSQL document database management.</li>
+    </ul>
+    <p>
+        19,383 rows of TikTok data gathered from <a href="https://www.kaggle.com/datasets/yakhyojon/tiktok">Kaggle</a>. <br>
+        4,450 rows Youtube data gathered from <a href="https://developers.google.com/youtube/v3/docs/">Google YouTube API</a>. <br>
+        More data for YouTube should be gathered for more robust analysis. <br>
+        <a href="https://github.com/Takosaga/fall_24/tree/main/coursework_assignment">Full Project Repo</a> <br>
+    </p>
+</div>
 """, unsafe_allow_html=True)
 
 # Modern footer
