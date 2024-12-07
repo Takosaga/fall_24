@@ -1,4 +1,6 @@
 
+import requests
+import io
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
@@ -101,9 +103,32 @@ st.markdown(f"""
     </div>
 """, unsafe_allow_html=True)
 
-# Load Data
-tiktok_df = pd.read_pickle('tiktok.pkl')
-youtube_df = pd.read_pickle('youtube.pkl')
+def load_pickle_from_github(url):
+    """
+    Loads a pickle file from a given GitHub URL.
+
+    Args:
+        url: The URL of the pickle file on GitHub.
+
+    Returns:
+        A pandas DataFrame containing the data loaded from the pickle file.
+    """
+
+    response = requests.get(url)
+    response.raise_for_status()  # Raise an exception for bad status codes
+
+    try:
+        data = pd.read_pickle(io.BytesIO(response.content))
+    except Exception as e:
+        print(f"Error loading pickle from {url}: {e}")
+        return None
+
+    return data
+
+# Load the pickle files from GitHub
+tiktok_df = load_pickle_from_github("https://github.com/Takosaga/fall_24/blob/main/big_data/coursework_assignment/tiktok.pkl?raw=true")
+youtube_df = load_pickle_from_github("https://github.com/Takosaga/fall_24/blob/main/big_data/coursework_assignment/youtube.pkl?raw=true")
+
 
 # Standardize column names
 tiktok_df.rename(columns={
@@ -240,7 +265,7 @@ summary_text.markdown(f"""
         19,383 rows of TikTok data gathered from <a href="https://www.kaggle.com/datasets/yakhyojon/tiktok">Kaggle</a>. <br>
         4,450 rows Youtube data gathered from <a href="https://developers.google.com/youtube/v3/docs/">Google YouTube API</a>. <br>
         More data for YouTube should be gathered for more robust analysis. <br>
-        <a href="https://github.com/Takosaga/fall_24/tree/main/big_data/coursework_assignment">Full Project Repo</a> <br>
+        <a href="https://github.com/Takosaga/fall_24/tree/main/coursework_assignment">Full Project Repo</a> <br>
     </p>
 </div>
 """, unsafe_allow_html=True)
