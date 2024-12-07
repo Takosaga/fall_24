@@ -9,18 +9,15 @@ from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import StandardScaler
 from scipy import stats
 
-# Modern color palette
+# Custom Color Palette (using provided hex values)
 COLORS = {
-    'primary': '#4361ee',      # Royal blue
-    'secondary': '#ff6b6b',    # Coral red
-    'background': '#1a1a2e',   # Dark navy
-    'card': '#162447',         # Lighter navy
-    'text': '#e6e6e6',         # Off-white
-    'accent': '#4cc9f0'        # Light blue
+    'primary': '#1C4E80',  # Blue
+    'secondary': '#EA6A47',  # Orange
+    'background': '#202020',  # Dark Gray
+    'card': '#F1F1F1',   # Light Gray
+    'text': '#7E909A',   # Grayish Blue
+    'accent': '#0091D5'   # Blue
 }
-
-# New background color
-new_background_color = "#222222"
 
 # Configure Streamlit layout
 st.set_page_config(
@@ -35,7 +32,7 @@ st.markdown(f"""
     <style>
         /* Main container */
         .main {{
-            background-color: {new_background_color}; 
+            background-color: {COLORS['background']}; 
             padding: 2rem;
         }}
         
@@ -66,7 +63,7 @@ st.markdown(f"""
         
         /* Sliders */
         .stSlider > div > div {{
-            background-color: {new_background_color}; 
+            background-color: {COLORS['background']}; 
             border-radius: 10px;
         }}
         
@@ -136,10 +133,12 @@ def create_scatter_plot(platform_data, platform_name, y_metric):
 
     # Remove outliers if selected
     if remove_outliers:
-        z_scores = stats.zscore(platform_data[y_metric])
-        abs_z_scores = np.abs(z_scores)
-        threshold = 3
-        platform_data = platform_data[(abs_z_scores < threshold)]
+        q1 = platform_data['view_count'].quantile(0.25)
+        q3 = platform_data['view_count'].quantile(0.75)
+        iqr = q3 - q1
+        lower_bound = q1 - 1.5 * iqr
+        upper_bound = q3 + 1.5 * iqr
+        platform_data = platform_data[(platform_data[y_metric] >= lower_bound) & (platform_data[y_metric] <= upper_bound)]
 
     # Standardize data if selected
     if standardize:
@@ -191,14 +190,14 @@ def create_scatter_plot(platform_data, platform_name, y_metric):
         yaxis_title=y_metric.replace('_', ' ').title(),
         showlegend=True,
         title_x=0.5,
-        plot_bgcolor=new_background_color  # Set the plot background color
+        plot_bgcolor=COLORS['background']  # Set the plot background color
     )
     return fig
 
 # Define colors for each platform
 platform_colors = {
-    'TikTok': 'blue',
-    'YouTube': 'orange'
+    'TikTok': COLORS['primary'],
+    'YouTube': COLORS['secondary']
 }
 
 # Create plots for each platform
@@ -211,6 +210,23 @@ with col1:
 
 with col2:
     st.plotly_chart(youtube_fig, use_container_width=True)
+
+summary_text = st.empty()
+
+summary_text.markdown(f"""
+    <div style="background-color: {COLORS['background']}; padding: 1rem; border-radius: 10px; margin-top: 1rem;">
+        <h3>Summary</h3>
+        <p>
+            19,383 rows of Tiktok data gathered from <a href="https://www.kaggle.com/datasets/yakhyojon/tiktok">Kaggle</a>. <br>
+            4,450 rows Youtube data gathered from <a href="https://developers.google.com/youtube/v3/docs/">Google YouTube API</a>. <br>
+            This dashboard analyzes the relationship between views and {y_metric.replace('_', ' ').title()} for TikTok and YouTube videos. <br>
+            The regression lines show a positive correlation between views and {y_metric} for both platforms. <br>
+            Data has been standardized using z-scores. <br>
+            Outliers were removed using the IQR method. <br>
+            <a href="https://github.com/Takosaga/fall_24/tree/main/coursework_assignment">Full Project Repo</a>. 
+        </p>
+    </div>
+""", unsafe_allow_html=True)
 
 # Modern footer
 st.markdown(f"""
