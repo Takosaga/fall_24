@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:ex="http://example.org/ontology#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Description rdf:about="http://example.org/ontology#has_author">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#has_category">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#author1">
+    <rdf:type rdf:resource="http://example.org/ontology#Author"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#video1">
+    <rdf:type rdf:resource="http://example.org/ontology#Video"/>
+    <ex:hasAuthor rdf:resource="http://example.org/ontology#author1"/>
+    <ex:hasCategory rdf:resource="http://example.org/ontology#category1"/>
+    <ex:viewCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1000</ex:viewCount>
+    <ex:likeCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">500</ex:likeCount>
+    <ex:has_author rdf:resource="http://example.org/ontology#author1"/>
+    <ex:has_category rdf:resource="http://example.org/ontology#category1"/>
+    <ex:view_count rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1000</ex:view_count>
+    <ex:like_count rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">500</ex:like_count>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#category1">
+    <rdf:type rdf:resource="http://example.org/ontology#Category"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#Category">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Category</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#Author">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Author</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#Video">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Video</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#viewCount">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#likeCount">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#hasAuthor">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#like_count">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#hasCategory">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/ontology#view_count">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+</rdf:RDF>
