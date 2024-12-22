@@ -1,0 +1,33 @@
+digraph Tree {
+node [shape=box, style="filled, rounded", color="black", fontname="helvetica"] ;
+edge [fontname="helvetica"] ;
+0 [label=<video_view_count &le; 11388.5<br/>gini = 0.489<br/>samples = 14143<br/>value = [6017, 8126]<br/>class = Suspicious>, fillcolor="#cce6f8"] ;
+1 [label=<friend &le; 0.999<br/>gini = 0.26<br/>samples = 5588<br/>value = [4731, 857]<br/>class = Not Suspicious>, fillcolor="#ea985d"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
+2 [label=<friend &le; 0.004<br/>gini = 0.295<br/>samples = 4462<br/>value = [3661, 801]<br/>class = Not Suspicious>, fillcolor="#eb9d64"] ;
+1 -> 2 ;
+3 [label=<gini = 0.244<br/>samples = 4267<br/>value = [3661, 606]<br/>class = Not Suspicious>, fillcolor="#e9965a"] ;
+2 -> 3 ;
+4 [label=<gini = 0.0<br/>samples = 195<br/>value = [0, 195]<br/>class = Suspicious>, fillcolor="#399de5"] ;
+2 -> 4 ;
+5 [label=<video_duration_sec &le; 26.857<br/>gini = 0.095<br/>samples = 1126<br/>value = [1070, 56]<br/>class = Not Suspicious>, fillcolor="#e68843"] ;
+1 -> 5 ;
+6 [label=<gini = 0.134<br/>samples = 429<br/>value = [398.0, 31.0]<br/>class = Not Suspicious>, fillcolor="#e78b48"] ;
+5 -> 6 ;
+7 [label=<gini = 0.069<br/>samples = 697<br/>value = [672, 25]<br/>class = Not Suspicious>, fillcolor="#e68640"] ;
+5 -> 7 ;
+8 [label=<media &le; 1.0<br/>gini = 0.255<br/>samples = 8555<br/>value = [1286, 7269]<br/>class = Suspicious>, fillcolor="#5caeea"] ;
+0 -> 8 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
+9 [label=<media &le; 0.0<br/>gini = 0.231<br/>samples = 7962<br/>value = [1062, 6900]<br/>class = Suspicious>, fillcolor="#57ace9"] ;
+8 -> 9 ;
+10 [label=<gini = 0.276<br/>samples = 6422<br/>value = [1062, 5360]<br/>class = Suspicious>, fillcolor="#60b0ea"] ;
+9 -> 10 ;
+11 [label=<gini = 0.0<br/>samples = 1540<br/>value = [0, 1540]<br/>class = Suspicious>, fillcolor="#399de5"] ;
+9 -> 11 ;
+12 [label=<internet &le; 0.009<br/>gini = 0.47<br/>samples = 593<br/>value = [224, 369]<br/>class = Suspicious>, fillcolor="#b1d8f5"] ;
+8 -> 12 ;
+13 [label=<gini = 0.492<br/>samples = 396<br/>value = [173, 223]<br/>class = Suspicious>, fillcolor="#d3e9f9"] ;
+12 -> 13 ;
+14 [label=<gini = 0.384<br/>samples = 197<br/>value = [51, 146]<br/>class = Suspicious>, fillcolor="#7ebfee"] ;
+12 -> 14 ;
+}
