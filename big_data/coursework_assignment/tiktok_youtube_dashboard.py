@@ -13,12 +13,12 @@ from scipy import stats
 
 # Custom Color Palette (using provided hex values)
 COLORS = {
-    'primary': '#1C4E80',  # Blue
-    'secondary': '#EA6A47',  # Orange
-    'background': '#202020',  # Dark Gray
-    'card': '#F1F1F1',   # Light Gray
-    'text': '#7E909A',   # Grayish Blue
-    'accent': '#0091D5'   # Blue
+    'primary': '#007bff',  # Blue
+    'secondary': '#fd7e14',  # Orange
+    'background': '#f8f9fa ',  # Dark Gray
+    'card': '#ffffff',   # Light Gray
+    'text': '#33333',   # Grayish Blue
+    'accent': '#007bff'   # Blue
 }
 
 # Configure Streamlit layout
