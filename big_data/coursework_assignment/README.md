@@ -50,6 +50,3 @@ To analyze and compare structured and semi-structured data from TikTok and YouTu
 - **GitHub Repository**: [Source Code](https://github.com/Takosaga/fall_24/tree/main/big_data/coursework_assignment)  
 
 ---
-
-## 🤝 About the Author
-This project was developed as part of coursework in the Big Data program at Transport and Telecommunication Institute. It demonstrates a blend of technical expertise and strategic thinking, aimed at solving real-world business problems.
