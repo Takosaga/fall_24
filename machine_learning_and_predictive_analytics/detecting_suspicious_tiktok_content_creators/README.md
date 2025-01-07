@@ -38,7 +38,7 @@ This repository contains the implementation of interpretable machine learning mo
    - Precision, Recall, and F1 Score to prioritize balanced performance over raw accuracy.
 
 ---
-
+![](https://github.com/Takosaga/fall_24/blob/main/machine_learning_and_predictive_analytics/detecting_suspicious_tiktok_content_creators/reports/figures/decision_tree.png)
 ## 🌟 Results
 - **Best Model**: Decision Tree with a maximum depth of 3 and SMOTEENN resampling, achieving an F1 score of **0.47**.
 - **Key Features**:
