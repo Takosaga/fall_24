@@ -47,6 +47,7 @@ To analyze and compare structured and semi-structured data from TikTok and YouTu
 
 ## 🔗 Project Links
 - **Interactive Dashboard**: [View Dashboard](https://tiktok-youtube-dashboard.streamlit.app/)  
-- **GitHub Repository**: [Source Code](https://github.com/Takosaga/fall_24/tree/main/big_data/coursework_assignment)  
+- **Write up**: [View Report](https://github.com/Takosaga/fall_24/blob/main/big_data/coursework_assignment/reports/gamez_big_data_CW.pdf)
+- **Video Demo**: [Youtube Video](https://youtu.be/0G7ulK7abP4)
 
 ---
