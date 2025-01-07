@@ -48,7 +48,7 @@ This repository contains the implementation of interpretable machine learning mo
   - Future iterations should explore more complex models like neural networks combined with Explainable AI (XAI) techniques for enhanced interpretability.
 
 ---
-
+[Full Report](https://github.com/Takosaga/fall_24/blob/main/machine_learning_and_predictive_analytics/detecting_suspicious_tiktok_content_creators/docs/gamez_report.pdf)
 
 <a target="_blank" href="https://cookiecutter-data-science.drivendata.org/">
     <img src="https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter" />
