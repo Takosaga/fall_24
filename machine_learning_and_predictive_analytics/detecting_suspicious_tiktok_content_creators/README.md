@@ -49,9 +49,6 @@ This repository contains the implementation of interpretable machine learning mo
 
 ---
 
-## 🔗 Project Links
-- **Project Repository**: [Source Code](https://github.com/Takosaga/fall_24/tree/main/machine_learning_and_predictive_analytics/detecting_suspicious_tiktok_content_creators)  
-
 
 <a target="_blank" href="https://cookiecutter-data-science.drivendata.org/">
     <img src="https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter" />
