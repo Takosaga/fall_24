@@ -35,7 +35,7 @@ To analyze and compare structured and semi-structured data from TikTok and YouTu
 4. **Implementation**:  
    - Streamlit dashboard for real-time data visualization.  
 
-
+![](https://github.com/Takosaga/fall_24/blob/main/big_data/coursework_assignment/reports/figures/etl.png)
 ---
 
 ## 🌟 Results
