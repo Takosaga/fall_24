@@ -6,6 +6,7 @@ This project involved developing an interactive Power BI dashboard to analyze th
 
 This project addressed the need for UWE Bristol to understand its performance relative to competitor universities. By analyzing key metrics such as university rankings, scores, and career outcomes, the dashboard provides valuable information to inform strategic decision-making.
 
+![](https://github.com/Takosaga/fall_24/blob/main/bi_and_data_viz/dashboard.png)
 ## Key Features
 
 *   **Data Collection and Cleaning:** Data from the "Twelve Year Guardian League Table" dataset was cleaned and transformed using Power Query. This included handling errors, removing duplicates, and structuring the data for analysis.
