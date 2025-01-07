@@ -1,4 +1,4 @@
-# Competitive Analysis for UWE Bristol
+https://youtu.be/0G7ulK7abP4# Competitive Analysis for UWE Bristol
 
 This project involved developing an interactive Power BI dashboard to analyze the University of the West of England (UWE Bristol)'s competitive position within the UK higher education landscape. The goal was to provide data-driven insights to inform marketing strategies and attract international students.
 
@@ -43,3 +43,5 @@ This project addressed the need for UWE Bristol to understand its performance re
 *   Explore subject-specific analysis to identify areas of strength and weakness within UWE's programs.
 *   Conduct further research on international student preferences to refine marketing strategies.
 *   Potentially use more advanced visualization techniques.
+
+[Full Report](https://github.com/Takosaga/fall_24/blob/main/bi_and_data_viz/gamez_reflective_diary.pdf)
